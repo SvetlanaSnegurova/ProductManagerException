@@ -20,6 +20,7 @@ public class ProductTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void searchByNameProduct() {
         ProductRepository repo = new ProductRepository();
@@ -36,6 +37,7 @@ public class ProductTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void searchByNameProduct2() {
         ProductRepository repo = new ProductRepository();
@@ -69,6 +71,7 @@ public class ProductTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void removeById() {
         ProductRepository repo = new ProductRepository();
@@ -85,6 +88,7 @@ public class ProductTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void addProductSmartPhone() {
         ProductRepository repo = new ProductRepository();
