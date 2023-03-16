@@ -3,6 +3,8 @@ package ru.netology;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class ProductTest {
     @Test
     public void addProductBook() {
@@ -73,7 +75,7 @@ public class ProductTest {
     }
 
     @Test
-    public void removeById() {
+    public void removeById() throws NotFoundException {
         ProductRepository repo = new ProductRepository();
         Book book1 = new Book(1, "Sherlock holmes", 300, "Arthur Conan Doyle");
         Book book2 = new Book(2, "the green mile", 400, "Stephen King");
@@ -82,7 +84,7 @@ public class ProductTest {
         repo.add(book1);
         repo.add(book2);
         repo.add(book3);
-        repo.removeById(1);
+        repo.removeById(book1.getId());
         Product[] actual = repo.findAll();
         Product[] expected = {book2, book3};
 
@@ -104,5 +106,37 @@ public class ProductTest {
         Product[] expected = {smartPhone1, smartPhone2, smartPhone3};
 
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void NotFoundException() {
+        ProductRepository repo = new ProductRepository();
+        Book book1 = new Book(1, "Sherlock holmes", 300, "Arthur Conan Doyle");
+        Book book2 = new Book(2, "the green mile", 400, "Stephen King");
+        Book book3 = new Book(3, "Twilight", 200, "Stephanie Mayer");
+
+        repo.add(book1);
+        repo.add(book2);
+        repo.add(book3);
+
+        assertThrows(NotFoundException.class, () -> {
+            repo.removeById(10);
+        });
+    }
+
+    @Test
+    public void NotFoundExceptions() {
+        ProductRepository repo = new ProductRepository();
+        Book book1 = new Book(1, "Sherlock holmes", 300, "Arthur Conan Doyle");
+        Book book2 = new Book(2, "the green mile", 400, "Stephen King");
+        Book book3 = new Book(3, "Twilight", 200, "Stephanie Mayer");
+
+        repo.add(book1);
+        repo.add(book2);
+        repo.add(book3);
+
+        assertThrows(NotFoundException.class, () -> {
+            repo.removeById(304);
+        });
     }
 }

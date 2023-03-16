@@ -12,20 +12,31 @@ public class ProductRepository {
         products = tmp;
     }
 
-    public void removeById(int removeId) {
+    public Product[] findAll() {
+        return products;
+    }
+
+    public Product findById(int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public void removeById(int id) throws NotFoundException {
+        if (findById(id) == null) {
+            throw new NotFoundException("Element with id:" + id + "Не найден");
+        }
         Product[] tmp = new Product[products.length - 1];
         int index = 0;
         for (Product product : products) {
-            if (product.getId() != removeId) {
+            if (product.getId() != id) {
                 tmp[index] = product;
                 index++;
             }
             products = tmp;
         }
     }
-
-    public Product[] findAll() {
-        return products;
-    }
 }
-
